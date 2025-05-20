@@ -5,6 +5,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { handleButtonClick } from '../../utils/buttonHandler'; // Import the reusable function
 	import { currentInputStore } from '../../stores/currentInputStore'; // Import the store
+	import CryptoJS from 'crypto-js';
 
 	let cardData: MenuItem[] = [];
 	let amountPaid = '₱0.00'; // Default amount paid
@@ -1480,15 +1481,18 @@
 		<div class="flex w-full flex-col overflow-auto p-4">
 			<!-- Category Category buttons navigation -->
 			<div
-				class="sticky top-0 z-10 mb-4 flex flex-wrap gap-4 border-b border-gray-200 bg-white px-2 py-3 shadow-md"
+				class="sticky top-0 z-10 mb-4 flex flex-wrap gap-2 border-b border-gray-200 bg-white px-4 py-4 shadow-md"
 			>
 				{#each ['All', 'Appetizer', 'Salad', 'Rice Meal', 'Steak And Salmon', 'Pasta', 'Sandwich', 'Pizza', 'Soup', 'Breakfast Menu', 'Side Dish Menu', 'Chicken', 'Pork', 'Beef', 'Specialty', 'Vegetables', 'Fish', 'Frappe', 'Soda', 'Fruit Shake', 'Beverage', 'Juice', 'Iced Coffee', 'Hot Coffee'] as category}
 					<button
-						class="rounded-md px-4 py-2 font-bold text-black transition duration-200"
+						class="rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 hover:scale-105"
 						class:bg-cyan-950={selectedCategory === category}
 						class:text-white={selectedCategory === category}
-						class:bg-white={selectedCategory !== category}
-						class:shadow-md={selectedCategory !== category}
+						class:bg-gray-100={selectedCategory !== category}
+						class:text-gray-700={selectedCategory !== category}
+						class:hover:bg-cyan-900={selectedCategory !== category}
+						class:hover:text-white={selectedCategory !== category}
+						class:shadow-sm={selectedCategory !== category}
 						on:click={() => (selectedCategory = category)}
 					>
 						{category}

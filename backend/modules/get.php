@@ -31,6 +31,22 @@ function getBestsellers($conn)
     echo json_encode($most_ordered);
 }
 
+// Helper function to check if request is from frontend
+function isFrontendRequest() {
+    $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
+    $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
+    return strpos($referer, $host) !== false;
+}
+
+// Helper function to encrypt data
+function encryptData($data, $key = 'Codeblitz@2025AccessKey!@') {
+    $cipher = "aes-256-cbc";
+    $ivlen = openssl_cipher_iv_length($cipher);
+    $iv = openssl_random_pseudo_bytes($ivlen);
+    $encrypted = openssl_encrypt(json_encode($data), $cipher, $key, 0, $iv);
+    return base64_encode($iv . $encrypted);
+}
+
 // Function to get menu items
 function getMenu($conn)
 {
@@ -41,7 +57,15 @@ function getMenu($conn)
         while ($row = $result->fetch_assoc()) {
             $menuItems[] = $row;
         }
-        echo json_encode($menuItems);
+        
+        // Check if request is from frontend
+        if (isFrontendRequest()) {
+            echo json_encode($menuItems);
+        } else {
+            // Encrypt data for direct/Postman access
+            $encryptedData = encryptData($menuItems);
+            echo json_encode(['encrypted_data' => $encryptedData]);
+        }
     } else {
         echo json_encode(["message" => "No menu items found."]);
     }
