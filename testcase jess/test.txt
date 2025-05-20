@@ -1,0 +1,43 @@
+1
+npx jest src/lib/database/cashier/cashierOperations.test.ts -t "should retrieve pending orders"
+
+2
+npx jest src/lib/database/cashier/cashierOperations.test.ts -t "should retrieve bill details for a specific receipt number"
+
+3
+npx jest src/lib/database/cashier/cashierOperations.test.ts -t "should split a bill into two separate bills"
+
+4
+npx jest src/lib/database/cashier/cashierOperations.test.ts -t "should apply a percentage discount to a bill"
+
+5
+npx jest src/lib/database/cashier/cashierOperations.test.ts -t "applyDiscount"
+
+6
+npx jest src/lib/database/cashier/cashierOperations.test.ts -t "should void a transaction with manager approval"
+
+7
+npx jest src/lib/database/cashier/cashierOperations.test.ts -t "should process a cash payment successfully"
+
+8
+npx jest src/lib/database/cashier/cashierOperations.test.ts -t "should retrieve receipt details for reprinting"
+
+9
+npx jest src/lib/database/cashier/cashierOperations.test.ts -t "should issue a refund with manager approval"
+
+10
+npx jest src/lib/database/cashier/cashierOperations.test.ts -t "should close the register and generate a sales report"
+
+11
+npx jest src/lib/database/cashier/cashierOperations.test.ts -t "should authenticate a cashier with valid credentials"
+
+12
+npx jest src/lib/database/cashier/cashierOperations.test.ts -t "should retrieve all pending transactions"
+
+13
+npx jest src/lib/database/cashier/cashierOperations.test.ts -t "should mark a bill as paid"
+
+14
+npx jest src/lib/database/cashier/cashierOperations.test.ts -t "should retrieve waiter notes for a specific receipt"
+
+
