@@ -255,7 +255,7 @@
         console.log("Pending Data:", pendingData); // Log pendingData to check values
 
         // Send data to the backend for pending action
-        fetch('http://localhost/Codeblitz/backend/modules/insert.php?action=remit_returns', {
+        fetch('http://localhost/Codeblitz/backend/modules/remit_sales', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -311,7 +311,7 @@
     // New function to check if a remit exists for the selected date
     async function checkRemitExists() {
         const formattedDate = selectedDate.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
-        const apiUrl = `http://localhost/Codeblitz/backend/modules/get.php?action=getRemitReturns&date=${formattedDate}`;
+        const apiUrl = `http://localhost/Codeblitz/backend/modules/get.php?action=getRemitSales&date=${formattedDate}`;
         
         const response = await fetch(apiUrl);
         const data = await response.json();
