@@ -1506,9 +1506,9 @@
 			<div class="mb-4 flex justify-center">
 				<img src="icon.png" alt="Restaurant Logo" class="h-24" />
 			</div>
-			<h2 class="text-center text-2xl font-bold">Kape Rustiko Cafe and Restaurant</h2>
-			<p class="text-center text-lg">Dewey Ave, Subic Bay Freeport Zone</p>
-			<p class="text-center text-lg">VAT REG TIN: 123-456-789-12345</p>
+			<h2 class="text-center text-2xl font-bold">POS System with Inventory Management</h2>
+			<p class="text-center text-lg">Developed by Team Codeblitz</p>
+			<p class="text-center text-lg">Final Project</p>
 			<h2 class="mb-4 mt-4 text-center text-2xl font-bold">SALES INVOICE</h2>
 			<p class="text-lg">Transaction Date: {new Date().toLocaleDateString()}</p>
 			<p class="text-lg">Transaction Time: {new Date().toLocaleTimeString()}</p>
