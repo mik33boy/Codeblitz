@@ -792,17 +792,6 @@
             </div>
         </div>
 
-        <!-- Add Z-Report Button -->
-        <div class="mb-6 flex justify-end">
-            <button 
-                class="bg-blue-600 text-white px-4 py-2 rounded-md flex items-center hover:bg-blue-700 transition duration-200"
-                on:click={openZReportModal}
-            >
-                <FontAwesomeIcon icon={faFileAlt} class="mr-2" />
-                Generate Z-Report
-            </button>
-        </div>
-
         <!-- Charts Section -->
         <div class="grid grid-cols-3 gap-2 mb-6">
             <div class="bg-white rounded-lg shadow-lg p-2">
