@@ -104,7 +104,7 @@
 	// Function to calculate voucher discount
 	async function calculateVoucherDiscount() {
 		const response = await fetch(
-			`http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getVouchersbyCode&voucher_code=${voucherCode}`,
+			`http://localhost/Codeblitz/backend/modules/get.php?action=getVouchersbyCode&voucher_code=${voucherCode}`,
 			{
 				method: 'GET' // Change to GET method
 			}
@@ -120,7 +120,7 @@
 		console.log('Fetched Discount:', voucherDiscount); // Log the fetched discount
 		// Log the link with the inputted voucher code
 		console.log(
-			`Fetch URL: http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getVouchersbyCode&voucher_code=${voucherCode}`
+			`Fetch URL: http://localhost/Codeblitz/backend/modules/get.php?action=getVouchersbyCode&voucher_code=${voucherCode}`
 		);
 	}
 
@@ -131,10 +131,10 @@
 		}
 		console.log('Fetched staff_token:', staffToken); // Log the fetched staff_token
 		console.log(
-			`Fetching user data from: http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getUser&staff_token=${staffToken}`
+			`Fetching user data from: http://localhost/Codeblitz/backend/modules/get.php?action=getUser&staff_token=${staffToken}`
 		); // Log the URL with the staff_token
 		const response = await fetch(
-			`http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getUser&staff_token=${staffToken}`
+			`http://localhost/Codeblitz/backend/modules/get.php?action=getUser&staff_token=${staffToken}`
 		);
 		if (response.ok) {
 			const userData = await response.json();
@@ -148,7 +148,7 @@
 	async function fetchQueuedOrders() {
 		try {
 			const response = await fetch(
-				'http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getQueOrders'
+				'http://localhost/Codeblitz/backend/modules/get.php?action=getQueOrders'
 			);
 			if (!response.ok) {
 				throw new Error(`Failed to fetch queued orders: ${response.statusText}`);
@@ -168,7 +168,7 @@
 	// Function to fetch reserve tables
 	async function fetchReserveTables() {
 		const response = await fetch(
-			'http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getReserveTables'
+			'http://localhost/Codeblitz/backend/modules/get.php?action=getReserveTables'
 		);
 		if (response.ok) {
 			const data = await response.json();
@@ -180,7 +180,7 @@
 
 	async function fetchOrders() {
 		const response = await fetch(
-			'http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getQueOrders'
+			'http://localhost/Codeblitz/backend/modules/get.php?action=getQueOrders'
 		);
 		if (response.ok) {
 			orders = await response.json(); // Store the fetched orders
@@ -196,7 +196,7 @@
 			
 			// Get the current order data first
 			const getResponse = await fetch(
-				`http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getOrderItemsByReceipt&receipt_number=${receiptNumber}`
+				`http://localhost/Codeblitz/backend/modules/get.php?action=getOrderItemsByReceipt&receipt_number=${receiptNumber}`
 			);
 			
 			if (!getResponse.ok) {
@@ -213,7 +213,7 @@
 			// Since we need to modify the original order in the database,
 			// we need to get the original order object from que_orders
 			const fetchOriginalOrder = await fetch(
-				`http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getQueOrders`
+				`http://localhost/Codeblitz/backend/modules/get.php?action=getQueOrders`
 			);
 			
 			if (!fetchOriginalOrder.ok) {
@@ -242,7 +242,7 @@
 			
 			// Create a special DELETE request for this specific action to void the item
 			const voidResponse = await fetch(
-				`http://localhost/kaperustiko-possystem/backend/modules/delete.php?action=voidQueuedOrder&receipt_number=${receiptNumber}`,
+				`http://localhost/Codeblitz/backend/modules/delete.php?action=voidQueuedOrder&receipt_number=${receiptNumber}`,
 				{
 					method: 'DELETE',
 					headers: {
@@ -275,7 +275,7 @@
 				};
 				
 				const reinsertResponse = await fetch(
-					'http://localhost/kaperustiko-possystem/backend/modules/save_que_order.php',
+					'http://localhost/Codeblitz/backend/modules/save_que_order.php',
 					{
 						method: 'POST',
 						headers: {
@@ -524,7 +524,7 @@
 			// Log the thermal data to be printed
 			console.log('Thermal Data to be printed:', thermalData); // Log the data
 
-			const thermalResponse = await fetch('http://localhost/kaperustiko-possystem/src/routes/thermal_printer.php', {
+			const thermalResponse = await fetch('http://localhost/Codeblitz/src/routes/thermal_printer.php', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -577,7 +577,7 @@
 			// Log the thermal data to be printed
 			console.log('Thermal Data to be printed:', thermalData); // Log the data
 
-			const thermalResponse = await fetch('http://localhost/kaperustiko-possystem/src/routes/thermal_printer.php', {
+			const thermalResponse = await fetch('http://localhost/Codeblitz/src/routes/thermal_printer.php', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -660,7 +660,7 @@
 			};
 
 			console.log('Final receiptData to be sent:', receiptData); // Log the final data being sent
-			const response = await fetch('http://localhost/kaperustiko-possystem/backend/modules/insert.php?action=insertReceipt', {
+			const response = await fetch('http://localhost/Codeblitz/backend/modules/insert.php?action=insertReceipt', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json'
@@ -685,7 +685,7 @@
 
 			// Delete table occupancy
 			const deleteResponse = await fetch(
-				`http://localhost/kaperustiko-possystem/backend/modules/delete.php?action=deleteTableOccupancy&table_number=${selectedCard.table}`,
+				`http://localhost/Codeblitz/backend/modules/delete.php?action=deleteTableOccupancy&table_number=${selectedCard.table}`,
 				{ method: 'DELETE' }
 			);
 
@@ -758,7 +758,7 @@
 	// Function to handle table reservation
 	async function handleReserveTable() {
 		const response = await fetch(
-			'http://localhost/kaperustiko-possystem/backend/modules/insert.php?action=reserve_date',
+			'http://localhost/Codeblitz/backend/modules/insert.php?action=reserve_date',
 			{
 				method: 'POST',
 				headers: {
@@ -788,7 +788,7 @@
 
 		// Fetch reserved table details
 		const response = await fetch(
-			`http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getInfoReserveTables&table_number=${card.table}`
+			`http://localhost/Codeblitz/backend/modules/get.php?action=getInfoReserveTables&table_number=${card.table}`
 		);
 		if (response.ok) {
 			const reservedTableDetails = await response.json();
@@ -802,7 +802,7 @@
 
 	async function handleDeleteReservation() {
 		const response = await fetch(
-			`http://localhost/kaperustiko-possystem/backend/modules/delete.php?action=deleteByTableNumber&table_number=${selectedCard.table}`,
+			`http://localhost/Codeblitz/backend/modules/delete.php?action=deleteByTableNumber&table_number=${selectedCard.table}`,
 			{
 				method: 'DELETE'
 			}
@@ -922,7 +922,7 @@
 			// Update each order with the new table number
 			for (const order of ordersToTransfer) {
 				const response = await fetch(
-					'http://localhost/kaperustiko-possystem/backend/modules/update.php?action=updateTableNumber',
+					'http://localhost/Codeblitz/backend/modules/update.php?action=updateTableNumber',
 					{
 						method: 'POST',
 						headers: {

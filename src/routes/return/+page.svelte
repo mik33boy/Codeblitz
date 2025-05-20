@@ -79,7 +79,7 @@
         const formattedDate = selectedDate.toLocaleDateString('en-US');
         console.log("Fetching sales data for date:", formattedDate);
         
-        const apiUrl = `http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getReturnOrders&return_date=${formattedDate}`;
+        const apiUrl = `http://localhost/Codeblitz/backend/modules/get.php?action=getReturnOrders&return_date=${formattedDate}`;
         console.log("API URL:", apiUrl); // Log the final API URL
 
         const response = await fetch(apiUrl);
@@ -194,7 +194,7 @@
         console.log("Return Data:", returnData); // Log remitData to check values
 
         // Send data to the backend
-        fetch('http://localhost/kaperustiko-possystem/backend/modules/remit_returns.php', {
+        fetch('http://localhost/Codeblitz/backend/modules/remit_returns.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -254,7 +254,7 @@
         console.log("Pending Data:", pendingData); // Log pendingData to check values
 
         // Send data to the backend for pending action
-        fetch('http://localhost/kaperustiko-possystem/backend/modules/insert.php?action=remit_returns', {
+        fetch('http://localhost/Codeblitz/backend/modules/insert.php?action=remit_returns', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -310,7 +310,7 @@
     // New function to check if a remit exists for the selected date
     async function checkRemitExists() {
         const formattedDate = selectedDate.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
-        const apiUrl = `http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getRemitReturns&date=${formattedDate}`;
+        const apiUrl = `http://localhost/Codeblitz/backend/modules/get.php?action=getRemitReturns&date=${formattedDate}`;
         
         const response = await fetch(apiUrl);
         const data = await response.json();

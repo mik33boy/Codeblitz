@@ -133,7 +133,7 @@
                               selectedDate.getFullYear();
         
         
-        const apiUrl = `http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getSalesInformationByCodeAndDate&sales_code=${selectedSalesCode}&date=${formattedDate}`;
+        const apiUrl = `http://localhost/Codeblitz/backend/modules/get.php?action=getSalesInformationByCodeAndDate&sales_code=${selectedSalesCode}&date=${formattedDate}`;
         console.log("API URL:", apiUrl);
 
         const response = await fetch(apiUrl);
@@ -238,7 +238,7 @@
     // Update the confirmRemit function
     function confirmRemit() {
         // Send data to the here to insert on remit_sales
-        const apiUrl = `http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getTotalSalesByCode&sales_code=${selectedSalesCode}`;
+        const apiUrl = `http://localhost/Codeblitz/backend/modules/get.php?action=getTotalSalesByCode&sales_code=${selectedSalesCode}`;
  
         // Prepare data to send
         const remitData = {
@@ -268,7 +268,7 @@
         console.log("Remit Data:", remitData);
 
         // Send data to the backend
-        fetch('http://localhost/kaperustiko-possystem/backend/modules/remit_sales.php', {
+        fetch('http://localhost/Codeblitz/backend/modules/remit_sales.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -350,7 +350,7 @@
     // New function to check if both shifts have remitted for the selected date
     async function checkRemitExists() {
         const formattedDate = selectedDate.toLocaleDateString('en-US');
-        const apiUrl = `http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getRemitSales&remit_code=${selectedSalesCode}`;
+        const apiUrl = `http://localhost/Codeblitz/backend/modules/get.php?action=getRemitSales&remit_code=${selectedSalesCode}`;
         
         const response = await fetch(apiUrl);
         const data = await response.json();
@@ -388,7 +388,7 @@
 
     // New function to delete the sale from total_sales
     function deleteSale(receipt: string) {
-        fetch('http://localhost/kaperustiko-possystem/backend/modules/delete.php?action=deleteSalesInformation', {
+        fetch('http://localhost/Codeblitz/backend/modules/delete.php?action=deleteSalesInformation', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -432,7 +432,7 @@
             };
 
             try {
-                const response = await fetch('http://localhost/kaperustiko-possystem/backend/modules/insert.php', {
+                const response = await fetch('http://localhost/Codeblitz/backend/modules/insert.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -480,7 +480,7 @@
             // Get all sales for the selected date
             const formattedDate = selectedDate.toLocaleDateString('en-US');
             console.log("Formatted Date:", formattedDate);
-            const response = await fetch(`http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getSalesInformationByDate&date=${formattedDate}`);
+            const response = await fetch(`http://localhost/Codeblitz/backend/modules/get.php?action=getSalesInformationByDate&date=${formattedDate}`);
             const salesData = await response.json();
             console.log("Sales Data:", salesData); // Log the fetched sales data
 
@@ -691,7 +691,7 @@
 
     // New function to fetch sales codes and dates
     async function fetchSalesCodes() {
-        const response = await fetch('http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getAllTotalSales');
+        const response = await fetch('http://localhost/Codeblitz/backend/modules/get.php?action=getAllTotalSales');
         const data = await response.json();
         
         if (Array.isArray(data)) {
@@ -743,7 +743,7 @@
             }
         };
 
-        const response = await fetch('http://localhost/kaperustiko-possystem/backend/modules/export_today_reports.php', {
+        const response = await fetch('http://localhost/Codeblitz/backend/modules/export_today_reports.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

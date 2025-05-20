@@ -65,23 +65,23 @@
     onMount(async () => {
         const today = new Date();
         const formattedDate = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`; // Format date as MM/DD/YYYY
-        const response = await fetch(`http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getTodaySales&date=${formattedDate}`); // Use formatted date in the URL
+        const response = await fetch(`http://localhost/Codeblitz/backend/modules/get.php?action=getTodaySales&date=${formattedDate}`); // Use formatted date in the URL
         const data = await response.json();
         if (data.length > 0 && data[0].total_amount) { // Adjusted to check the correct structure of the response
             totalSalesToday = data[0].total_amount; // Update the total sales for today
         }
 
         // Fetch all sales remit items from the backend
-        const responseRemit = await fetch('http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getRemitSales');
+        const responseRemit = await fetch('http://localhost/Codeblitz/backend/modules/get.php?action=getRemitSales');
         const remitItems = await responseRemit.json();
         salesRemitItems = remitItems; // Store fetched data in salesRemitItems
 
-        const responseReturn = await fetch('http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getRemitReturns');
+        const responseReturn = await fetch('http://localhost/Codeblitz/backend/modules/get.php?action=getRemitReturns');
         const fetchedReturnItems = await responseReturn.json(); // Fetch return items
         returnItems = fetchedReturnItems; // Store fetched data in returnItems
 
         try {
-            const response = await fetch('http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getTotalSales', {
+            const response = await fetch('http://localhost/Codeblitz/backend/modules/get.php?action=getTotalSales', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -96,7 +96,7 @@
         }
 
         try {
-            const response = await fetch('http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getBestsellers', {
+            const response = await fetch('http://localhost/Codeblitz/backend/modules/get.php?action=getBestsellers', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -115,7 +115,7 @@
 
         // Fetch least ordered item
         try {
-            const responseLeastSeller = await fetch('http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getLeastsellers', {
+            const responseLeastSeller = await fetch('http://localhost/Codeblitz/backend/modules/get.php?action=getLeastsellers', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -129,13 +129,13 @@
         }
 
         // Fetch waiter order counts from your backend
-        const responseWaiterOrderCounts = await fetch('http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getWaitersWithOrderCounts');
+        const responseWaiterOrderCounts = await fetch('http://localhost/Codeblitz/backend/modules/get.php?action=getWaitersWithOrderCounts');
         const dataWaiterOrderCounts = await responseWaiterOrderCounts.json();
         waiterOrderCounts = dataWaiterOrderCounts.sort((a: { order_count: number }, b: { order_count: number }) => b.order_count - a.order_count); // Sort in descending order
 
         // Fetch leading staff data
         try {
-            const response = await fetch('http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getLeadingStaff');
+            const response = await fetch('http://localhost/Codeblitz/backend/modules/get.php?action=getLeadingStaff');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -150,7 +150,7 @@
 
         // Fetch order counts by hour
         try {
-            const response = await fetch('http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getOrderTime');
+            const response = await fetch('http://localhost/Codeblitz/backend/modules/get.php?action=getOrderTime');
             const orderCounts = await response.json();
             console.log("Fetched order counts:", orderCounts); // Log the fetched data
             
@@ -340,7 +340,7 @@
     // Existing delete functions become the actual delete operations
     async function deleteRemit(remit_id: number) {
         try {
-            const response = await fetch(`http://localhost/kaperustiko-possystem/backend/modules/delete.php?action=deleteRemit&remit_id=${remit_id}`, {
+            const response = await fetch(`http://localhost/Codeblitz/backend/modules/delete.php?action=deleteRemit&remit_id=${remit_id}`, {
                 method: 'DELETE'
             });
             const data = await response.json();
@@ -357,7 +357,7 @@
 
     async function deleteReturn(return_id: number) {
         try {
-            const response = await fetch(`http://localhost/kaperustiko-possystem/backend/modules/delete.php?action=deleteReturn&return_id=${return_id}`, {
+            const response = await fetch(`http://localhost/Codeblitz/backend/modules/delete.php?action=deleteReturn&return_id=${return_id}`, {
                 method: 'DELETE'
             });
             const data = await response.json();
@@ -410,7 +410,7 @@
             // Format the date as MM/DD/YYYY
             const formattedDate = `${zReportDate.getMonth() + 1}/${zReportDate.getDate()}/${zReportDate.getFullYear()}`;
             
-            const response = await fetch(`http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getZReportData&date=${formattedDate}`);
+            const response = await fetch(`http://localhost/Codeblitz/backend/modules/get.php?action=getZReportData&date=${formattedDate}`);
             
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -434,7 +434,7 @@
         }
         
         try {
-            const response = await fetch('http://localhost/kaperustiko-possystem/src/routes/z_report_printer.php', {
+            const response = await fetch('http://localhost/Codeblitz/src/routes/z_report_printer.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

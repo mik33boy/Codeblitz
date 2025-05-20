@@ -54,10 +54,10 @@
 		}
 		console.log('Fetched staff_token:', staffToken); // Log the fetched staff_token
 		console.log(
-			`Fetching user data from: http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getUser&staff_token=${staffToken}`
+			`Fetching user data from: http://localhost/Codeblitz/backend/modules/get.php?action=getUser&staff_token=${staffToken}`
 		); // Log the URL with the staff_token
 		const response = await fetch(
-			`http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getUser&staff_token=${staffToken}`
+			`http://localhost/Codeblitz/backend/modules/get.php?action=getUser&staff_token=${staffToken}`
 		);
 		if (response.ok) {
 			const userData = await response.json();
@@ -68,7 +68,7 @@
 
 	async function fetchMenu() {
 		const response = await fetch(
-			'http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getMenu'
+			'http://localhost/Codeblitz/backend/modules/get.php?action=getMenu'
 		);
 		if (response.ok) {
 			cardData = await response.json();
@@ -85,7 +85,7 @@
 		isFetching = true; // Set fetching flag
 
 		const response = await fetch(
-			'http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getOrders'
+			'http://localhost/Codeblitz/backend/modules/get.php?action=getOrders'
 		);
 
 		if (response.ok) {
@@ -262,7 +262,7 @@
 		}
 	}
 
-	fetch('http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getTotalOrders')
+	fetch('http://localhost/Codeblitz/backend/modules/get.php?action=getTotalOrders')
 		.then((response) => response.json())
 		.then((data) => {
 			orderNumber = `#${data.total_order.toString().padStart(2, '0')}`; // Set order number based on fetched data
@@ -316,7 +316,7 @@
 
 		try {
 			const response = await fetch(
-				`http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getWaiterByCode&waiter_code=${waiterCode}`
+				`http://localhost/Codeblitz/backend/modules/get.php?action=getWaiterByCode&waiter_code=${waiterCode}`
 			);
 			if (!response.ok) {
 				console.error('Network response was not ok:', response.statusText);
@@ -370,7 +370,7 @@
 
 	async function saveQueOrder() {
 		// Fetch the unique que order number first
-		fetch('http://localhost/kaperustiko-possystem/backend/modules/getTotalQueOrders')
+		fetch('http://localhost/Codeblitz/backend/modules/getTotalQueOrders')
 			.then((response) => {
 				if (!response.ok) {
 					console.error('Failed to fetch queue order number:', response.statusText);
@@ -442,7 +442,7 @@
 			console.log('Receipt Data:', JSON.stringify(receiptData, null, 2)); // Log the data being sent
 
 			// Send data to the server
-			fetch('http://localhost/kaperustiko-possystem/backend/modules/save_que_order.php', {
+			fetch('http://localhost/Codeblitz/backend/modules/save_que_order.php', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -478,7 +478,7 @@
 						const code = item.code;
 						console.log('Updating inventory for:', code);
 						fetch(
-							`http://localhost/kaperustiko-possystem/backend/modules/qty_data.php?code=${code}&order_quantity=${item.order_quantity}`,
+							`http://localhost/Codeblitz/backend/modules/qty_data.php?code=${code}&order_quantity=${item.order_quantity}`,
 							{
 								method: 'GET'
 							}
@@ -498,7 +498,7 @@
 
 					// Now delete all orders from the orders table
 					fetch(
-						'http://localhost/kaperustiko-possystem/backend/modules/delete.php?action=deleteAllOrders',
+						'http://localhost/Codeblitz/backend/modules/delete.php?action=deleteAllOrders',
 						{
 							method: 'DELETE'
 						}
@@ -531,7 +531,7 @@
 		async function updateWaiterOrderCount(waiterCode: string) {
 			try {
 				const response = await fetch(
-					'http://localhost/kaperustiko-possystem/backend/modules/update_waiter_count.php',
+					'http://localhost/Codeblitz/backend/modules/update_waiter_count.php',
 					{
 						method: 'POST',
 						headers: {
@@ -681,7 +681,7 @@
 
 			// Then delete the old item and add updated one
 			fetch(
-				`http://localhost/kaperustiko-possystem/backend/modules/delete.php?action=deleteAllOrders`,
+				`http://localhost/Codeblitz/backend/modules/delete.php?action=deleteAllOrders`,
 				{ method: 'DELETE' }
 			)
 				.then(() => {
@@ -689,7 +689,7 @@
 					Promise.all(
 						updatedItems.map((item) => {
 							return fetch(
-								'http://localhost/kaperustiko-possystem/backend/modules/insert.php?action=save_order',
+								'http://localhost/Codeblitz/backend/modules/insert.php?action=save_order',
 								{
 									method: 'POST',
 									headers: { 'Content-Type': 'application/json' },
@@ -723,7 +723,7 @@
 
 	// Helper function to save order to database
 	function saveOrderToDatabase(orderData: any, updatedItems: any[]) {
-		fetch('http://localhost/kaperustiko-possystem/backend/modules/insert.php?action=save_order', {
+		fetch('http://localhost/Codeblitz/backend/modules/insert.php?action=save_order', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -796,7 +796,7 @@
 		// 2. Clear all existing temporary orders in the database
 		try {
 			const deleteResponse = await fetch(
-				'http://localhost/kaperustiko-possystem/backend/modules/delete.php?action=deleteAllOrders',
+				'http://localhost/Codeblitz/backend/modules/delete.php?action=deleteAllOrders',
 				{ method: 'DELETE' }
 			);
 			const deleteData = await deleteResponse.json();
@@ -812,7 +812,7 @@
 				await Promise.all(
 					orderedItems.map(item => {
 						return fetch(
-							'http://localhost/kaperustiko-possystem/backend/modules/insert.php?action=save_order',
+							'http://localhost/Codeblitz/backend/modules/insert.php?action=save_order',
 							{
 								method: 'POST',
 								headers: { 'Content-Type': 'application/json' },
@@ -864,7 +864,7 @@
 
 		// First, remove the existing item from the database
 		fetch(
-			`http://localhost/kaperustiko-possystem/backend/modules/delete.php?action=voidOrder&order_name=${encodeURIComponent(item.order_name)}&order_size=${encodeURIComponent(item.order_size)}&index=${index}`,
+			`http://localhost/Codeblitz/backend/modules/delete.php?action=voidOrder&order_name=${encodeURIComponent(item.order_name)}&order_size=${encodeURIComponent(item.order_size)}&index=${index}`,
 			{
 				method: 'DELETE',
 				headers: {
@@ -901,7 +901,7 @@
 
 				// Save the updated order to the database
 				fetch(
-					'http://localhost/kaperustiko-possystem/backend/modules/insert.php?action=save_order',
+					'http://localhost/Codeblitz/backend/modules/insert.php?action=save_order',
 					{
 						method: 'POST',
 						headers: {
@@ -995,7 +995,7 @@
 		// 2. Clear all existing temporary orders in the database
 		try {
 			const deleteResponse = await fetch(
-				'http://localhost/kaperustiko-possystem/backend/modules/delete.php?action=deleteAllOrders',
+				'http://localhost/Codeblitz/backend/modules/delete.php?action=deleteAllOrders',
 				{ method: 'DELETE' }
 			);
 			const deleteData = await deleteResponse.json();
@@ -1010,7 +1010,7 @@
 				await Promise.all(
 					orderedItems.map(item => {
 						return fetch(
-							'http://localhost/kaperustiko-possystem/backend/modules/insert.php?action=save_order',
+							'http://localhost/Codeblitz/backend/modules/insert.php?action=save_order',
 							{
 								method: 'POST',
 								headers: { 'Content-Type': 'application/json' },
@@ -1047,7 +1047,7 @@
 
 		// Send request to backend to delete the order - include both code and size to identify the specific item
 		fetch(
-			`http://localhost/kaperustiko-possystem/backend/modules/delete.php?action=voidOrder&order_name=${encodeURIComponent(orderToVoid.order_name)}&order_size=${encodeURIComponent(orderToVoid.order_size)}&index=${index}`,
+			`http://localhost/Codeblitz/backend/modules/delete.php?action=voidOrder&order_name=${encodeURIComponent(orderToVoid.order_name)}&order_size=${encodeURIComponent(orderToVoid.order_size)}&index=${index}`,
 			{
 				method: 'DELETE'
 			}
@@ -1116,7 +1116,7 @@
 
 	async function fetchQueuedOrders() {
 		const response = await fetch(
-			'http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getQueOrders'
+			'http://localhost/Codeblitz/backend/modules/get.php?action=getQueOrders'
 		);
 		if (response.ok) {
 			queuedOrders = await response.json();
@@ -1153,7 +1153,7 @@
 
 			// Fetch order details
 			const response = await fetch(
-				`http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getTableOrderDetails&table_number=${tableNumber}`
+				`http://localhost/Codeblitz/backend/modules/get.php?action=getTableOrderDetails&table_number=${tableNumber}`
 			);
 			if (!response.ok) {
 				console.error(`HTTP error ${response.status}: ${response.statusText}`);
@@ -1218,7 +1218,7 @@
 					for (const receiptNumber of missingReceipts) {
 						try {
 							const receiptResponse = await fetch(
-								`http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getOrderItemsByReceipt&receipt_number=${receiptNumber}`
+								`http://localhost/Codeblitz/backend/modules/get.php?action=getOrderItemsByReceipt&receipt_number=${receiptNumber}`
 							);
 
 							if (receiptResponse.ok) {
@@ -1307,7 +1307,7 @@
 			console.log('Sending delivery status update:', payload);
 
 			const response = await fetch(
-				`http://localhost/kaperustiko-possystem/backend/modules/update.php?action=updateDeliveryStatus`,
+				`http://localhost/Codeblitz/backend/modules/update.php?action=updateDeliveryStatus`,
 				{
 					method: 'POST',
 					headers: {
@@ -1407,7 +1407,7 @@
 
 	async function fetchTableStatus() {
 		const response = await fetch(
-			'http://localhost/kaperustiko-possystem/backend/modules/check_tables.php'
+			'http://localhost/Codeblitz/backend/modules/check_tables.php'
 		);
 		if (response.ok) {
 			tableStatus = await response.json();
@@ -1419,7 +1419,7 @@
 	// Function to fetch reserve tables
 	async function fetchReserveTables() {
 		const response = await fetch(
-			'http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getReserveTables'
+			'http://localhost/Codeblitz/backend/modules/get.php?action=getReserveTables'
 		);
 		if (response.ok) {
 			const data = await response.json();
@@ -1437,7 +1437,7 @@
 			for (const order of selectedTableDetails.orders) {
 				try {
 					const response = await fetch(
-						`http://localhost/kaperustiko-possystem/backend/modules/delete.php?action=voidQueuedOrder&receipt_number=${order.receipt_number}`,
+						`http://localhost/Codeblitz/backend/modules/delete.php?action=voidQueuedOrder&receipt_number=${order.receipt_number}`,
 						{
 							method: 'DELETE'
 						}

@@ -51,7 +51,7 @@
     // Function to fetch vouchers
     const fetchVouchers = async () => {
         try {
-            const response = await fetch('http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getVouchers');
+            const response = await fetch('http://localhost/Codeblitz/backend/modules/get.php?action=getVouchers');
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -73,7 +73,7 @@
     // Function to add a new voucher
     async function addVoucher() {
         const response = await fetch(
-            'http://localhost/kaperustiko-possystem/backend/modules/insert.php?action=voucher_code',
+            'http://localhost/Codeblitz/backend/modules/insert.php?action=voucher_code',
             {
                 method: 'POST',
                 headers: {
@@ -110,7 +110,7 @@
         if (voucherToDelete) {
             console.log('Voucher to delete:', voucherToDelete); // Log the voucher code for debugging
             const response = await fetch(
-                `http://localhost/kaperustiko-possystem/backend/modules/delete.php?action=deleteVoucher&voucher_code=${voucherToDelete}`, // Use the correct action and parameter
+                `http://localhost/Codeblitz/backend/modules/delete.php?action=deleteVoucher&voucher_code=${voucherToDelete}`, // Use the correct action and parameter
                 {
                     method: 'DELETE'
                 }
@@ -152,7 +152,7 @@
     }
 
     async function editVoucher(){
-        const response = await fetch('http://localhost/kaperustiko-possystem/backend/modules/updates.php?action=editVoucher', {
+        const response = await fetch('http://localhost/Codeblitz/backend/modules/updates.php?action=editVoucher', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

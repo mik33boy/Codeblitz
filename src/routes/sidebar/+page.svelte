@@ -50,7 +50,7 @@
         // Fetch the user's first name using staff_token
         const staffToken = localStorage.getItem('staff_token'); // Assuming the token is stored in localStorage
         if (staffToken) {
-            const response = await fetch(`http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getUser&staff_token=${staffToken}`);
+            const response = await fetch(`http://localhost/Codeblitz/backend/modules/get.php?action=getUser&staff_token=${staffToken}`);
             if (response.ok) {
                 const data = await response.json();
                 userFirstName = data; // Set the user's first name
@@ -149,7 +149,7 @@
         };
 
         // Make an API call to insert the waiter
-        fetch('http://localhost/kaperustiko-possystem/backend/modules/insert.php', {
+        fetch('http://localhost/Codeblitz/backend/modules/insert.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

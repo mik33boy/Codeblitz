@@ -33,7 +33,7 @@
             return;
         }
 
-        const response = await fetch('http://localhost/kaperustiko-possystem/backend/modules/auth.php', {
+        const response = await fetch('http://localhost/Codeblitz/backend/modules/auth.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',

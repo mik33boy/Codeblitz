@@ -36,7 +36,7 @@
 
     // Fetch menu items from the backend
     onMount(async () => {
-        const response = await fetch('http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getMenu'); // Update the URL as needed
+        const response = await fetch('http://localhost/Codeblitz/backend/modules/get.php?action=getMenu'); // Update the URL as needed
         if (response.ok) {
             items = await response.json();
             
@@ -89,7 +89,7 @@
             });
 
             try {
-                const response = await fetch('http://localhost/kaperustiko-possystem/backend/modules/upload_excel.php', {
+                const response = await fetch('http://localhost/Codeblitz/backend/modules/upload_excel.php', {
                     method: 'POST',
                     body: formData
                 });
@@ -124,7 +124,7 @@
                 return;
             }
 
-            const response = await fetch('http://localhost/kaperustiko-possystem/backend/modules/upload_product.php', {
+            const response = await fetch('http://localhost/Codeblitz/backend/modules/upload_product.php', {
                 method: 'POST',
                 body: formData
             });
@@ -172,7 +172,7 @@
 
     const fetchQuantityToAdd = async () => {
         // Fetch the quantity from the backend
-        const response = await fetch(`http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getProductQty&code=${selectedItem}`);
+        const response = await fetch(`http://localhost/Codeblitz/backend/modules/get.php?action=getProductQty&code=${selectedItem}`);
         if (response.ok) {
             const data = await response.json();
             quantityToAdd = data.qty; // Update the quantityToAdd variable
@@ -188,7 +188,7 @@
         };
 
         // Send the update request to the backend
-        const response = await fetch('http://localhost/kaperustiko-possystem/backend/modules/update_qty.php', {
+        const response = await fetch('http://localhost/Codeblitz/backend/modules/update_qty.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -215,7 +215,7 @@
     };
 
     const fetchItemDetails = async () => {
-        const response = await fetch(`http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getItems&code=${selectedItem}`, {
+        const response = await fetch(`http://localhost/Codeblitz/backend/modules/get.php?action=getItems&code=${selectedItem}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -245,7 +245,7 @@
 
     const deleteProduct = async () => {
         if (selectedItem) {
-            const response = await fetch(`http://localhost/kaperustiko-possystem/backend/modules/delete.php?action=deleteProduct`, {
+            const response = await fetch(`http://localhost/Codeblitz/backend/modules/delete.php?action=deleteProduct`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -279,7 +279,7 @@
     }
 
     async function updateProduct() {
-        const response = await fetch('http://localhost/kaperustiko-possystem/backend/update_product.php', { // Adjust the URL as needed
+        const response = await fetch('http://localhost/Codeblitz/backend/update_product.php', { // Adjust the URL as needed
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

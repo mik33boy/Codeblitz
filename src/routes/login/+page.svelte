@@ -25,7 +25,7 @@
 
 		console.log('Fetching login request'); // Log before login fetch
 		// Send login request to the backend
-		const response = await fetch('http://localhost/kaperustiko-possystem/backend/modules/auth.php', {
+		const response = await fetch('http://localhost/Codeblitz/backend/modules/auth.php', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded',
@@ -151,13 +151,13 @@
 		
 		// Fetch waiter code by email
 		console.log('Fetching waiter code by email'); // Log before fetching waiter code
-		const waiterResponse = await fetch(`http://localhost/kaperustiko-possystem/backend/modules/get.php?action=getWaiterCodeByEmail&email=${resetEmail}`);
+		const waiterResponse = await fetch(`http://localhost/Codeblitz/backend/modules/get.php?action=getWaiterCodeByEmail&email=${resetEmail}`);
 		const waiterResult = await waiterResponse.json();
 		if (waiterResult.waiter_code) {
 			console.log('Waiter Code:', waiterResult.waiter_code); // Log the waiter code
 			
 			// New logic to send reset code to the user's email
-			const emailResponse = await fetch('http://localhost/kaperustiko-possystem/backend/modules/sendEmail.php', {
+			const emailResponse = await fetch('http://localhost/Codeblitz/backend/modules/sendEmail.php', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -190,7 +190,7 @@
 		console.log('Verifying code:', resetCode); // Log the code being verified
 
 		// Send request to verify the reset code
-		const response = await fetch(`http://localhost/kaperustiko-possystem/backend/modules/get.php?action=verifyResetCode&code=${resetCode}`);
+		const response = await fetch(`http://localhost/Codeblitz/backend/modules/get.php?action=verifyResetCode&code=${resetCode}`);
 		const result = await response.json(); // Parse JSON response
 
 		if (result.error) {
@@ -221,7 +221,7 @@
 			console.log('Submitting new password:', newPassword);
 			const waiterCode = resetCode; // Use resetCode as waiter_code
 
-			const response = await fetch('http://localhost/kaperustiko-possystem/backend/modules/update_password.php', {
+			const response = await fetch('http://localhost/Codeblitz/backend/modules/update_password.php', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
