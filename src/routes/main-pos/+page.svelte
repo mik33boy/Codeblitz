@@ -55,6 +55,7 @@
 		total_amount: number;
 		basePrice: number;
 		waiter_name: string;
+		order_take: string;
 	};
 
 	let totalOrderedItemsPrice = 0; // Variable to hold the total price of ordered items
@@ -518,7 +519,7 @@
 				totalAmount: totalAmount,
 				amountPaid: Number(payment),
 				change: Math.max(0, Number(payment) - totalAmount),
-				order_take: "Dine In",
+				order_take: isTakeOut ? 'Take Out' : 'Dine In',
 				cashier_shift: localStorage.getItem('selectedShift'),
 				sales_code: localStorage.getItem('shiftCode')
 			};
@@ -578,7 +579,7 @@
 				cashierName: cashierName,
 				waiter_name: waiterName,
 				table_number: selectedCard?.table || 'Take Out',
-				order_take: isTakeOut ? 'Take Out' : 'Dine In',
+				order_take: queuedOrders.find(order => order.que_order_no === orderNumber)?.order_take || 'Dine In',
 				amountPaid: paymentAmount, // Use parsed number
 				change: change, // Use parsed number
 				service_charge: serviceCharge, // Use parsed number
@@ -587,6 +588,7 @@
 					order_name: item.order_name,
 					order_quantity: item.order_quantity,
 					basePrice: item.basePrice,
+					order_take: isTakeOut ? 'Take Out' : 'Dine In',
 					// Add other necessary fields here
 				})),
 				cashier_shift: effectiveCashierShift, // Use the non-null value
@@ -1090,6 +1092,7 @@
 										</p>
 										<p class="font-semibold">Date: <span class="font-normal">{order.date}</span></p>
 										<p class="font-semibold">Time: <span class="font-normal">{order.time}</span></p>
+										<p class="font-semibold">Order Type: <span class="font-normal">{order.order_take || 'Dine In'}</span></p>
 										<p class="font-semibold">Items Ordered:</p>
 										{#each (() => {
 											try {

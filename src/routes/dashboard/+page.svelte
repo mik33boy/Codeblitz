@@ -48,10 +48,10 @@
     let zReportError: string | null = null; // Error message for Z-report
 
     // Utility function to safely format numbers
-    function safeNumberFormat(value: any, decimals: number = 2): string {
-        if (value === null || value === undefined) return '0.00';
+    function safeNumberFormat(value: any, decimals: number = 0): string {
+        if (value === null || value === undefined) return '0';
         const num = Number(value);
-        return isNaN(num) ? '0.00' : num.toFixed(decimals);
+        return isNaN(num) ? '0' : num.toFixed(decimals);
     }
 
     // Function to format date for input field (YYYY-MM-DD)
@@ -173,19 +173,19 @@
                 options: {
                     responsive: true,
                     plugins: {
-                        tooltip: {
-                            enabled: true,
-                            mode: 'index',
-                            intersect: false,
-                            callbacks: {
-                                label: function(tooltipItem) {
-                                    return `${tooltipItem.raw} orders`;
-                                }
-                            }
-                        },
                         legend: {
                             labels: {
                                 color: 'black'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        mode: 'index',
+                        intersect: false,
+                        callbacks: {
+                            label: function(tooltipItem: any) {
+                                return `${tooltipItem.raw} orders`;
                             }
                         }
                     },
@@ -233,7 +233,7 @@
                 weeklyOrders[dayIndex]++;
 
                 // Count takeout and dine-in orders (for pie chart)
-                if (sale.order_take === 'Takeout') {
+                if (sale.order_take === 'Take Out') {
                     takeoutCount++;
                 } else if (sale.order_take === 'Dine In') {
                     dineinCount++;
@@ -260,17 +260,17 @@
                     options: {
                         responsive: true,
                         plugins: {
-                            tooltip: {
-                                enabled: true,
-                                callbacks: {
-                                    label: function(tooltipItem) {
-                                        return `${tooltipItem.raw} orders`;
-                                    }
-                                }
-                            },
                             legend: {
                                 labels: {
                                     color: 'black'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            enabled: true,
+                            callbacks: {
+                                label: function(tooltipItem: any) {
+                                    return `${tooltipItem.raw} orders`;
                                 }
                             }
                         },
@@ -329,13 +329,6 @@
                                 }
                             }
                         },
-                        tooltip: {
-                            callbacks: {
-                                label: function(tooltipItem) {
-                                    return `${tooltipItem.label}: ${tooltipItem.raw}`;
-                                }
-                            }
-                        }
                     }
                 });
             } else {
@@ -490,10 +483,10 @@
                                 <tr class="border-t border-gray-300 hover:bg-gray-200 transition-colors duration-200">
                                     <td class="p-2 text-center" on:click={() => openPopup(item)}>{item.remit_id}</td>
                                     <td class="p-2 text-center" on:click={() => openPopup(item)}>{item.cashier_name}</td>
-                                    <td class="p-2 text-center" on:click={() => openPopup(item)}>₱{item.total_sales}.00</td>
+                                    <td class="p-2 text-center" on:click={() => openPopup(item)}>₱{item.total_sales}</td>
                                     <td class="p-2 text-center" on:click={() => openPopup(item)}>{item.remit_date}</td>
                                     <td class="p-2 text-center" on:click={() => openPopup(item)}>{item.remit_time}</td>
-                                    <td class="p-2 text-center" on:click={() => openPopup(item)}>₱{item.remit_shortage}.00</td>
+                                    <td class="p-2 text-center" on:click={() => openPopup(item)}>₱{item.remit_shortage}</td>
                                     <td class="p-2 text-center">
                                         <button class="p-1 {item.remit_validation === "Validated" ? 'bg-green-500' : item.remit_validation === "Pending" ? 'bg-yellow-500' : 'bg-gray-200'} text-white rounded">{item.remit_validation}</button>
                                     </td>
