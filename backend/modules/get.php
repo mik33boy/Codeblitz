@@ -862,41 +862,18 @@ function verifyResetCode($conn, $code) {
 // Function to get all data from total_sales
 function getAllTotalSales($conn)
 {
-    $sql = "SELECT DISTINCT date, sales_code FROM total_sales"; // Query to select unique dates and sales codes
+    $sql = "SELECT date, sales_code, total_amount, DAYNAME(date) AS day_of_week, order_take FROM total_sales"; // Query to select date, sales code, total amount, day of the week, and order_take
     $result = $conn->query($sql);
     
     if ($result->num_rows > 0) {
-        $salesData = $result->fetch_all(MYSQLI_ASSOC); // Fetch all unique sales data as an associative array
-        echo json_encode($salesData); // Return unique sales data as JSON
+        $salesData = $result->fetch_all(MYSQLI_ASSOC); // Fetch all sales data as an associative array
+        echo json_encode($salesData); // Return sales data as JSON
     } else {
         echo json_encode(["message" => "No sales data found."]); // Handle case with no data
     }
 }
 
-// Function to get sales by date and shift
-function getSalesByDateAndShift($conn)
-{
-    $date = isset($_GET['date']) ? $_GET['date'] : null; // Retrieve date from query parameters
-    $shift = isset($_GET['shift']) ? $_GET['shift'] : null; // Retrieve shift from query parameters
 
-    if ($date && $shift) {
-        // Update SQL query to calculate the sum of total_amount for the specified date and shift
-        $sql = "SELECT SUM(total_amount) AS total_sales FROM total_sales WHERE date = ? AND cashier_shift = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ss", $date, $shift);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        
-        if ($row = $result->fetch_assoc()) {
-            echo json_encode(['total_sales' => $row['total_sales']]);
-        } else {
-            echo json_encode(['total_sales' => 0]); // Return 0 if no sales found
-        }
-    } else {
-        echo json_encode(["error" => "Date and shift parameters are required."]);
-    }
-    $stmt->close();
-}
 
 // Function to get total sales by code
 function getTotalSalesByCode($conn)

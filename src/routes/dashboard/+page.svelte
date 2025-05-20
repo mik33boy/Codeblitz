@@ -208,91 +208,125 @@
             console.error("Failed to get canvas context");
         }
 
-         // Sales data from Monday to Sunday
+        // Sales data from Monday to Sunday
         const salesLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-        const salesData = [5000, 7500, 1000, 6000, 9000, 12000, 8000]; // Sample sales data for each day
+        
+        // Fetch sales data for the week and process for bar and pie charts
+        try {
+            const response = await fetch('http://localhost/Codeblitz/backend/modules/get.php?action=getAllTotalSales');
+            const salesData = await response.json();
+            
+            // Initialize array with zeros for each day (for bar chart)
+            const weeklyOrders = [0, 0, 0, 0, 0, 0, 0];
+            
+            // Initialize takeout and dine-in counts (for pie chart)
+            let takeoutCount = 0;
+            let dineinCount = 0;
 
+            // Process the sales data
+            salesData.forEach((sale: any) => {
+                const date = new Date(sale.date);
+                const dayOfWeek = date.getDay(); // 0 = Sunday, 1 = Monday, etc.
+                const dayIndex = dayOfWeek === 0 ? 6 : dayOfWeek - 1; // Convert to our array index (Monday = 0)
+                
+                // Increment the order count for the corresponding day (for bar chart)
+                weeklyOrders[dayIndex]++;
 
-        // Initialize the sales bar chart
-        const barCanvas = document.getElementById('salesBarChart') as HTMLCanvasElement;
-        const barCtx = barCanvas?.getContext('2d');
+                // Count takeout and dine-in orders (for pie chart)
+                if (sale.order_take === 'Takeout') {
+                    takeoutCount++;
+                } else if (sale.order_take === 'Dine In') {
+                    dineinCount++;
+                }
+            });
 
-        if (barCtx) {
-            const salesBarChart = new Chart(barCtx, {
-                type: 'bar', // Changed to bar chart
-                data: {
-                    labels: salesLabels, // Use the same labels
-                    datasets: [{
-                        label: 'Sales',
-                        data: salesData, // Use the same sales data
-                        borderColor: 'rgba(21, 94, 117, 1)',       
-                        backgroundColor: 'rgba(8, 51, 68, 0.3)',  
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        tooltip: {
-                            enabled: true,
-                            callbacks: {
-                                label: function(tooltipItem) {
-                                    return `${tooltipItem.raw} sales`;
+            // Initialize the sales bar chart
+            const barCanvas = document.getElementById('salesBarChart') as HTMLCanvasElement;
+            const barCtx = barCanvas?.getContext('2d');
+
+            if (barCtx) {
+                const salesBarChart = new Chart(barCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: salesLabels,
+                        datasets: [{
+                            label: 'Number of Orders',
+                            data: weeklyOrders,
+                            borderColor: 'rgba(21, 94, 117, 1)',       
+                            backgroundColor: 'rgba(8, 51, 68, 0.3)',  
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            tooltip: {
+                                enabled: true,
+                                callbacks: {
+                                    label: function(tooltipItem) {
+                                        return `${tooltipItem.raw} orders`;
+                                    }
+                                }
+                            },
+                            legend: {
+                                labels: {
+                                    color: 'black'
                                 }
                             }
                         },
-                        legend: {
-                            labels: {
-                                color: 'black'
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)',
-                            }
-                        },
-                        x: {
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)',
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)',
+                                },
+                                ticks: {
+                                    stepSize: 1,
+                                    callback: function(value) {
+                                        return value + ' orders';
+                                    }
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)',
+                                }
                             }
                         }
                     }
-                }
-            });
-        } else {
-            console.error("Failed to get canvas context for bar chart");
-        }
+                });
+            } else {
+                console.error("Failed to get canvas context for bar chart");
+            }
 
-        // Sample data for pie chart
-        const pieChartData = {
-            labels: ['Takeout', 'Dine-in'],
-            datasets: [{
-                data: [30, 70], // Example data
-                backgroundColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
-                hoverOffset: 4
-            }]
-        };
+            // Data for pie chart
+            const pieChartData = {
+                labels: ['Takeout', 'Dine-in'],
+                datasets: [{
+                    data: [takeoutCount, dineinCount], // Use the calculated data
+                    backgroundColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+                    hoverOffset: 4
+                }]
+            };
 
-        console.log(pieChartData);
+            console.log(pieChartData);
 
-        // Initialize the customers pie chart
-        const pieCanvas = document.getElementById('customersPieChart') as HTMLCanvasElement;
-        const pieCtx = pieCanvas?.getContext('2d');
+            // Initialize the customers pie chart
+            const pieCanvas = document.getElementById('customersPieChart') as HTMLCanvasElement;
+            const pieCtx = pieCanvas?.getContext('2d');
 
-        if (pieCtx) {
-            const customersPieChart = new Chart(pieCtx, {
-                type: 'doughnut', // Use 'doughnut' for the pie chart
-                data: pieChartData,
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            labels: {
-                                color: 'black'
+            if (pieCtx) {
+                const customersPieChart = new Chart(pieCtx, {
+                    type: 'doughnut', // Use 'doughnut' for the pie chart
+                    data: pieChartData,
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    color: 'black'
+                                }
                             }
                         },
                         tooltip: {
@@ -303,11 +337,15 @@
                             }
                         }
                     }
-                }
-            });
-        } else {
-            console.error("Failed to get canvas context for pie chart");
+                });
+            } else {
+                console.error("Failed to get canvas context for pie chart");
+            }
+
+        } catch (error) {
+            console.error("Error fetching sales data:", error);
         }
+
     });
 
 
