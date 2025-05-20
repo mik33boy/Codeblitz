@@ -17,6 +17,7 @@
 	let resetCode = ''; // State variable to hold the code entered by the user
 	let newPassword = ''; // State variable for new password
 	let repeatPassword = ''; // State variable for repeated password
+	let scale = 1; // Add scale state variable
 
 	async function handleLogin() {
 		console.log('Logging in with', email, password);
@@ -236,6 +237,16 @@
 		}
 	}
 
+	function handleZoom(direction: 'in' | 'out') {
+		if (direction === 'in' && scale < 1.5) {
+			scale += 0.1;
+		} else if (direction === 'out' && scale > 0.5) {
+			scale -= 0.1;
+		}
+		document.body.style.transform = `scale(${scale})`;
+		document.body.style.transformOrigin = 'center center';
+	}
+
 </script>
 
 {#if isLoading} <!-- Conditional rendering for loader -->
@@ -252,6 +263,26 @@
 
 </div>
 {/if}
+<div class="fixed bottom-4 right-4 flex gap-2 z-50">
+	<button 
+		on:click={() => handleZoom('in')} 
+		class="bg-blue-900 text-white p-2 rounded-full hover:bg-blue-700 transition-colors"
+		title="Zoom In"
+	>
+		<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+		</svg>
+	</button>
+	<button 
+		on:click={() => handleZoom('out')} 
+		class="bg-blue-900 text-white p-2 rounded-full hover:bg-blue-700 transition-colors"
+		title="Zoom Out"
+	>
+		<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+		</svg>
+	</button>
+</div>
 <div class="flex flex-col min-h-screen md:flex-row">
     <div class="flex-1 bg-cyan-950 flex items-center justify-center relative left-section">
        
@@ -271,7 +302,7 @@
             <img src="./icon.png" alt="Fallback description if image fails to load" class="max-w-full h-auto" aria-hidden="true" />
         </div>
         <div class="absolute bottom-10 left-10 text-white text-lg">
-            <h1 class="font-bold">Welcome to Kape Rustiko POS System</h1>
+            <h1 class="font-bold">Welcome to POS System</h1>
             <p class="add">Your gateway to an exceptional POS experience. Discover new opportunities with us!</p>
         </div>
     </div>
@@ -292,7 +323,7 @@
             </div>
             <button type="submit" class="w-full bg-blue-900 text-white p-2 rounded hover:bg-sky-600">Log In</button>
             <p class="mt-4 text-center">Don't Have an Account? <button type="button" class="text-red-500" on:click={() => window.location.href='/register'}>Register</button> | Forgot your password? <button type="button" class="text-blue-500" on:click={openResetPasswordPopup}>Reset it here</button></p>
-            <p class="mt-2 text-center text-sm text-gray-500">Version 1.0.0 Developed by Sam Nario & Michael Dayandante © 2025</p>
+            <p class="mt-2 text-center text-sm text-gray-500">Version 1.0.0 Developed by Codeblitz © 2025</p>
         </form>
     </div>
 </div>

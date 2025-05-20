@@ -303,6 +303,28 @@ function getReturnOrders($conn)
     echo json_encode($data);
 }
 
+// Function to get total sales by date
+function getSalesByDate($conn)
+{
+    $date = isset($_GET['date']) ? $_GET['date'] : null; // Retrieve date from query parameters
+    if ($date) {
+        $sql = "SELECT * FROM total_sales WHERE date = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $date);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($row = $result->fetch_assoc()) {
+            echo json_encode(['total_sales' => $row['total_sales']]);
+        } else {
+            echo json_encode(['total_sales' => 0]); // Return 0 if no sales found
+        }
+    } else {
+        echo json_encode(["error" => "Date parameter is required."]);
+    }
+    $stmt->close();
+}
+
 // Function to get sales information
 function getSalesInformation($conn)
 {
@@ -317,11 +339,17 @@ function getSalesInformation($conn)
     }
 }
 
+// Function to get sales information by date
 function getSalesInformationByDate($conn) {
     $sales_code = isset($_GET['sales_code']) ? $_GET['sales_code'] : null;
     $date = isset($_GET['date']) ? $_GET['date'] : null;
+
+    // Modify the SQL query to directly compare the date column, assuming it's YYYY-MM-DD
     $sql = "SELECT * FROM total_sales WHERE date = ?";
+
     $stmt = $conn->prepare($sql);
+
+    // Bind the date parameter. The input date is expected in YYYY-MM-DD format for the parameter.
     $stmt->bind_param("s", $date);
     $stmt->execute();
     $result = $stmt->get_result();

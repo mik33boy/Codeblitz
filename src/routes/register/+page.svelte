@@ -121,7 +121,7 @@
                 <img src="./icon.png" alt="Fallback description if image fails to load" class="max-w-full h-auto" aria-hidden="true" />
             </div>
             <div class="absolute bottom-10 left-10 text-white text-lg">
-                <h1 class="font-bold">Welcome to Kape Rustiko POS System</h1>
+                <h1 class="font-bold">Welcome to POS System</h1>
                 <p class="add">Your gateway to an exceptional POS experience. Discover new opportunities with us!</p>
             </div>
         </div>

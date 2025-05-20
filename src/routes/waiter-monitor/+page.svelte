@@ -1480,7 +1480,7 @@
 		<div class="flex w-full flex-col overflow-auto p-4">
 			<!-- Category Category buttons navigation -->
 			<div
-				class="sticky top-0 z-10 mb-4 flex flex-wrap space-x-4 border-b border-gray-200 bg-white px-2 py-3 shadow-md"
+				class="sticky top-0 z-10 mb-4 flex flex-wrap gap-4 border-b border-gray-200 bg-white px-2 py-3 shadow-md"
 			>
 				{#each ['All', 'Appetizer', 'Salad', 'Rice Meal', 'Steak And Salmon', 'Pasta', 'Sandwich', 'Pizza', 'Soup', 'Breakfast Menu', 'Side Dish Menu', 'Chicken', 'Pork', 'Beef', 'Specialty', 'Vegetables', 'Fish', 'Frappe', 'Soda', 'Fruit Shake', 'Beverage', 'Juice', 'Iced Coffee', 'Hot Coffee'] as category}
 					<button

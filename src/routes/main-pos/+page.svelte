@@ -491,57 +491,6 @@
 		isReceiptPopupVisible = true; // Show the receipt popup
 	}
 
-	async function previewReceipt() {
-		try {
-			const thermalData = {
-				restaurantName: "Kape Rustiko Cafe and Restaurant",
-				address: "Dewey Ave, Subic Bay Freeport Zone",
-				tin: "VAT REG TIN: 123-456-789-12345",
-				transactionDate: new Date().toLocaleDateString(),
-				transactionTime: new Date().toLocaleTimeString(),
-				cashierName: cashierName,
-				receiptNumber: orderNumber,
-				waiter_name: waiterName,
-				table_number: selectedCard?.table || 'Take Out',
-				itemsOrdered: orderedItems.map(item => ({
-					name: item.order_name + (item.order_name2 ? ` ${item.order_name2}` : ''),
-					quantity: item.order_quantity,
-					price: item.basePrice
-				})),
-				subtotal: totalOrderedItemsPrice,
-				seniorDiscount: seniorDiscount,
-				service_charge: includeServiceCharge ? Math.round(totalOrderedItemsPrice * 0.05) : 0,
-				total: Math.round(totalOrderedItemsPrice - Math.round(totalOrderedItemsPrice * voucherDiscount / 100) - Math.round(seniorDiscount) + (includeServiceCharge ? Math.round(totalOrderedItemsPrice * 0.05) : 0)),
-				isBillRequest: true // Add this flag to indicate it's a bill request
-			};
-
-			// Check if there are ordered items before printing
-			if (orderedItems.length === 0) {
-				showAlert('No items ordered yet. Please add items first.', 'error');
-				return;
-			}
-
-			// Log the thermal data to be printed
-			console.log('Thermal Data to be printed:', thermalData); // Log the data
-
-			const thermalResponse = await fetch('http://localhost/Codeblitz/src/routes/thermal_printer.php', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(thermalData)
-			});
-
-			if (!thermalResponse.ok) {
-				throw new Error('Failed to print bill request');
-			}
-
-			showAlert('Bill request printed successfully!', 'success');
-		} catch (error: any) {
-			console.error('Error:', error);
-			showAlert(error.message || 'Failed to print bill request.', 'error');
-		}
-	}
 
 	async function printReceipt() {
 		try {
@@ -573,21 +522,6 @@
 				cashier_shift: localStorage.getItem('selectedShift'),
 				sales_code: localStorage.getItem('shiftCode')
 			};
-
-			// Log the thermal data to be printed
-			console.log('Thermal Data to be printed:', thermalData); // Log the data
-
-			const thermalResponse = await fetch('http://localhost/Codeblitz/src/routes/thermal_printer.php', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(thermalData)
-			});
-
-			if (!thermalResponse.ok) {
-				throw new Error('Failed to print to thermal printer');
-			}
 
 			// Then proceed with saving receipt data
 			const totalCostStr = localStorage.getItem('totalCost');
