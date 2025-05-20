@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2025 at 10:58 PM
+-- Generation Time: May 20, 2025 at 10:22 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -73,10 +73,10 @@ CREATE TABLE `pos-menu` (
 
 INSERT INTO `pos-menu` (`menu_no`, `code`, `title1`, `title2`, `label`, `label2`, `price1`, `price2`, `price3`, `image`, `qty`, `stock_date`, `stock_time`) VALUES
 (1, 'A001', 'Chicken Finger Tamarind', '', 'Appetizer', 'Food', 305, 0, 0, 'default.png', 71, '2025-04-11', '09:59:03'),
-(2, 'A002', 'Pork Chips with Pinakurat Sauce', '', 'Appetizer', 'Food', 200, 0, 0, 'default.png', 71, '2025-04-11', '09:59:03'),
-(3, 'A003', 'Kangkong Chips w/ Pinakurat', '', 'Appetizer', 'Food', 180, 0, 0, 'default.png', 52, '2025-04-11', '09:59:03'),
-(4, 'A004', 'Nachos', '', 'Appetizer', 'Food', 300, 0, 0, 'default.png', 70, '2025-04-11', '09:59:03'),
-(5, 'A005', 'Salt and Pepper Fish Fillet', '', 'Appetizer', 'Food', 300, 0, 0, 'default.png', 64, '2025-04-11', '09:59:03'),
+(2, 'A002', 'Pork Chips with Pinakurat Sauce', '', 'Appetizer', 'Food', 200, 0, 0, 'default.png', 66, '2025-04-11', '09:59:03'),
+(3, 'A003', 'Kangkong Chips w/ Pinakurat', '', 'Appetizer', 'Food', 180, 0, 0, 'default.png', 49, '2025-04-11', '09:59:03'),
+(4, 'A004', 'Nachos', '', 'Appetizer', 'Food', 300, 0, 0, 'default.png', 69, '2025-04-11', '09:59:03'),
+(5, 'A005', 'Salt and Pepper Fish Fillet', '', 'Appetizer', 'Food', 300, 0, 0, 'default.png', 63, '2025-04-11', '09:59:03'),
 (6, 'A006', 'Korean Chicken Wings', '', 'Appetizer', 'Food', 345, 0, 0, 'default.png', 58, '2025-04-11', '09:59:03'),
 (7, 'A007', 'Onion Rings', '', 'Appetizer', 'Food', 130, 0, 0, 'default.png', 82, '2025-04-11', '09:59:03'),
 (8, 'A008', 'French Fries', '', 'Appetizer', 'Food', 150, 0, 0, 'default.png', 84, '2025-04-11', '09:59:03'),
@@ -364,6 +364,13 @@ CREATE TABLE `que_orders` (
   `total_order` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `que_orders`
+--
+
+INSERT INTO `que_orders` (`que_order_no`, `receipt_number`, `date`, `time`, `items_ordered`, `total_amount`, `amount_paid`, `amount_change`, `order_take`, `table_number`, `order_status`, `waiter_name`, `waiter_code`, `total_order`) VALUES
+(683, '977002', '5/20/2025', '12:06:17 PM', '[{\"order_name\":\"Salt and Pepper Fish Fillet\",\"order_name2\":\"\",\"order_quantity\":\"x1\",\"order_size\":\"Regular\",\"order_addons_price\":\"0\",\"order_addons_price2\":\"0\",\"order_addons_price3\":\"0\",\"basePrice\":300,\"delivered\":\"0\"}]', 300, 0, 0, 'Dine In', '7', 'pending', 'Michael', 'MD9915', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -393,19 +400,15 @@ CREATE TABLE `remit_sales` (
   `remit_time` varchar(255) NOT NULL,
   `remit_shortage` int(255) NOT NULL,
   `remit_validation` varchar(255) NOT NULL,
-  `cashier_shift` varchar(255) NOT NULL,
-  `food_summary` text NOT NULL,
-  `remit_code` varchar(255) NOT NULL,
-  `service_charge` int(255) NOT NULL
+  `food_summary` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `remit_sales`
 --
 
-INSERT INTO `remit_sales` (`remit_id`, `cashier_name`, `total_sales`, `remit_date`, `remit_time`, `remit_shortage`, `remit_validation`, `cashier_shift`, `food_summary`, `remit_code`, `service_charge`) VALUES
-(41, 'nandy', '713', '2025-04-15', '9:26:46 PM', 0, 'Validated', 'night', '[{\"receipt_number\":\"660\",\"items_ordered\":\"[{\\\"order_name\\\":\\\"Salt and Pepper Fish Fillet\\\",\\\"order_quantity\\\":\\\"x1\\\",\\\"basePrice\\\":\\\"300\\\"}]\",\"total_cost\":\"₱300\",\"service_charge\":\"0\"},{\"receipt_number\":\"659\",\"items_ordered\":\"[{\\\"order_name\\\":\\\"Kangkong Chips w\\\\/ Pinakurat\\\",\\\"order_quantity\\\":\\\"x1\\\",\\\"basePrice\\\":\\\"180\\\"}]\",\"total_cost\":\"₱153\",\"service_charge\":\"0\"},{\"receipt_number\":\"661\",\"items_ordered\":\"[{\\\"order_name\\\":\\\"Pork Katsudon\\\",\\\"order_quantity\\\":\\\"x1\\\",\\\"basePrice\\\":\\\"260\\\"}]\",\"total_cost\":\"₱260\",\"service_charge\":\"0\"}]', '044ss7', 0),
-(42, 'nandy', '3616', '2025-04-15', '9:27:54 PM', 0, 'Validated', 'morning', '[{\"receipt_number\":\"662\",\"items_ordered\":\"[{\\\"order_name\\\":\\\"Baby Back Ribs\\\",\\\"order_quantity\\\":\\\"x1\\\",\\\"basePrice\\\":\\\"300\\\"}]\",\"total_cost\":\"₱300\",\"service_charge\":\"0\"},{\"receipt_number\":\"663\",\"items_ordered\":\"[{\\\"order_name\\\":\\\"Shrimp Aglio Olio\\\",\\\"order_quantity\\\":\\\"x1\\\",\\\"basePrice\\\":\\\"260\\\"}]\",\"total_cost\":\"₱273\",\"service_charge\":\"0\"},{\"receipt_number\":\"665\",\"items_ordered\":\"[{\\\"order_name\\\":\\\"Kangkong Chips w\\\\/ Pinakurat\\\",\\\"order_quantity\\\":\\\"x1\\\",\\\"basePrice\\\":\\\"180\\\"},{\\\"order_name\\\":\\\"Pork Chips with Pinakurat Sauce\\\",\\\"order_quantity\\\":\\\"x1\\\",\\\"basePrice\\\":\\\"200\\\"},{\\\"order_name\\\":\\\"Chicken Finger Tamarind\\\",\\\"order_quantity\\\":\\\"x1\\\",\\\"basePrice\\\":\\\"305\\\"},{\\\"order_name\\\":\\\"Salt and Pepper Fish Fillet\\\",\\\"order_quantity\\\":\\\"x1\\\",\\\"basePrice\\\":\\\"300\\\"},{\\\"order_name\\\":\\\"Korean Chicken Wings\\\",\\\"order_quantity\\\":\\\"x1\\\",\\\"basePrice\\\":\\\"345\\\"},{\\\"order_name\\\":\\\"French Fries\\\",\\\"order_quantity\\\":\\\"x1\\\",\\\"basePrice\\\":\\\"150\\\"}]\",\"total_cost\":\"₱1258\",\"service_charge\":\"0\"},{\"receipt_number\":\"666\",\"items_ordered\":\"[{\\\"order_name\\\":\\\"Pork Chips with Pinakurat Sauce\\\",\\\"order_quantity\\\":\\\"x1\\\",\\\"basePrice\\\":\\\"200\\\"}]\",\"total_cost\":\"₱160\",\"service_charge\":\"0\"},{\"receipt_number\":\"667\",\"items_ordered\":\"[{\\\"order_name\\\":\\\"Korean Chicken Wings\\\",\\\"order_quantity\\\":\\\"x1\\\",\\\"basePrice\\\":\\\"345\\\"}]\",\"total_cost\":\"₱345\",\"service_charge\":\"0\"},{\"receipt_number\":\"668\",\"items_ordered\":\"[{\\\"order_name\\\":\\\"Pork Chips with Pinakurat Sauce\\\",\\\"order_quantity\\\":\\\"x1\\\",\\\"basePrice\\\":\\\"200\\\"}]\",\"total_cost\":\"₱210\",\"service_charge\":\"0\"},{\"receipt_number\":\"669\",\"items_ordered\":\"[{\\\"order_name\\\":\\\"Salt and Pepper Fish Fillet\\\",\\\"order_quantity\\\":\\\"x1\\\",\\\"basePrice\\\":\\\"300\\\"}]\",\"total_cost\":\"₱300\",\"service_charge\":\"0\"},{\"receipt_number\":\"670\",\"items_ordered\":\"[{\\\"order_name\\\":\\\"Salt and Pepper Fish Fillet\\\",\\\"order_quantity\\\":\\\"x1\\\",\\\"basePrice\\\":\\\"300\\\"}]\",\"total_cost\":\"₱315\",\"service_charge\":\"0\"},{\"receipt_number\":\"671\",\"items_ordered\":\"[{\\\"order_name\\\":\\\"Toast Green Salad\\\",\\\"order_quantity\\\":\\\"x1\\\",\\\"basePrice\\\":\\\"230\\\"}]\",\"total_cost\":\"₱242\",\"service_charge\":\"12\"},{\"receipt_number\":\"672\",\"items_ordered\":\"[{\\\"order_name\\\":\\\"Rustiko Salad in Sesame Dressing\\\",\\\"order_quantity\\\":\\\"x1\\\",\\\"basePrice\\\":\\\"250\\\"}]\",\"total_cost\":\"₱213\",\"service_charge\":\"13\"}]', '1xqkk5', 1213);
+INSERT INTO `remit_sales` (`remit_id`, `cashier_name`, `total_sales`, `remit_date`, `remit_time`, `remit_shortage`, `remit_validation`, `food_summary`) VALUES
+(43, 'Michael', '350', '2025-05-20', '10:47:20 AM', 0, 'Validated', '[{\"items_ordered\":\"[{\\\"order_name\\\":\\\"Kangkong Chips w\\\\/ Pinakurat\\\",\\\"order_quantity\\\":\\\"x1\\\",\\\"basePrice\\\":180}]\",\"total_amount\":\"180\",\"date\":\"2025-05-20\",\"time\":\"09:35:11\"},{\"items_ordered\":\"[{\\\"order_name\\\":\\\"Pork Chips with Pinakurat Sauce\\\",\\\"order_quantity\\\":\\\"x1\\\",\\\"basePrice\\\":200}]\",\"total_amount\":\"170\",\"date\":\"2025-05-20\",\"time\":\"10:30:49\"}]');
 
 -- --------------------------------------------------------
 
@@ -491,22 +494,14 @@ CREATE TABLE `total_sales` (
 --
 
 INSERT INTO `total_sales` (`total_order`, `receipt_number`, `date`, `time`, `cashier_name`, `items_ordered`, `total_amount`, `amount_paid`, `amount_change`, `order_take`, `table_number`, `order_status`, `waiter_name`, `service_charge`, `cashier_shift`, `sales_code`, `discount_amount`) VALUES
-(508, '660', '4/15/2025', '2:43:12 PM', 'nandy', '[{\"order_name\":\"Salt and Pepper Fish Fillet\",\"order_quantity\":\"x1\",\"basePrice\":\"300\"}]', 300, 300, 0, 'Dine In', 12, 'pending', '', 0, 'night', '044ss7', 0.00),
-(509, '659', '4/15/2025', '2:44:50 PM', 'nandy', '[{\"order_name\":\"Kangkong Chips w\\/ Pinakurat\",\"order_quantity\":\"x1\",\"basePrice\":\"180\"}]', 153, 160, 7, 'Dine In', 13, 'pending', '', 0, 'night', '044ss7', 0.00),
-(510, '661', '4/15/2025', '2:45:15 PM', 'nandy', '[{\"order_name\":\"Pork Katsudon\",\"order_quantity\":\"x1\",\"basePrice\":\"260\"}]', 260, 270, 10, 'Dine In', 5, 'pending', '', 0, 'night', '044ss7', 0.00),
-(511, '662', '4/15/2025', '2:46:02 PM', 'nandy', '[{\"order_name\":\"Baby Back Ribs\",\"order_quantity\":\"x1\",\"basePrice\":\"300\"}]', 300, 300, 0, 'Dine In', 6, 'pending', '', 0, 'morning', '1xqkk5', 0.00),
-(512, '663', '4/15/2025', '6:24:27 PM', 'nandy', '[{\"order_name\":\"Shrimp Aglio Olio\",\"order_quantity\":\"x1\",\"basePrice\":\"260\"}]', 273, 300, 27, 'Dine In', 2, 'pending', '', 0, 'morning', '1xqkk5', 0.00),
-(513, '665', '4/15/2025', '6:26:59 PM', 'nandy', '[{\"order_name\":\"Kangkong Chips w\\/ Pinakurat\",\"order_quantity\":\"x1\",\"basePrice\":\"180\"},{\"order_name\":\"Pork Chips with Pinakurat Sauce\",\"order_quantity\":\"x1\",\"basePrice\":\"200\"},{\"order_name\":\"Chicken Finger Tamarind\",\"order_quantity\":\"x1\",\"basePrice\":\"305\"},{\"order_name\":\"Salt and Pepper Fish Fillet\",\"order_quantity\":\"x1\",\"basePrice\":\"300\"},{\"order_name\":\"Korean Chicken Wings\",\"order_quantity\":\"x1\",\"basePrice\":\"345\"},{\"order_name\":\"French Fries\",\"order_quantity\":\"x1\",\"basePrice\":\"150\"}]', 1258, 1300, 42, 'Dine In', 8, 'pending', '', 0, 'morning', '1xqkk5', 0.00),
-(514, '666', '4/15/2025', '7:26:35 PM', 'nandy', '[{\"order_name\":\"Pork Chips with Pinakurat Sauce\",\"order_quantity\":\"x1\",\"basePrice\":\"200\"}]', 160, 200, 40, 'Dine In', 7, 'pending', '', 0, 'morning', '1xqkk5', 0.00),
-(515, '667', '4/15/2025', '8:08:32 PM', 'Michael', '[{\"order_name\":\"Korean Chicken Wings\",\"order_quantity\":\"x1\",\"basePrice\":\"345\"}]', 345, 500, 155, 'Dine In', 10, 'pending', '', 0, 'morning', '1xqkk5', 0.00),
-(516, '668', '4/15/2025', '8:35:16 PM', 'Michael', '[{\"order_name\":\"Pork Chips with Pinakurat Sauce\",\"order_quantity\":\"x1\",\"basePrice\":\"200\"}]', 210, 210, 0, 'Dine In', 7, 'pending', '', 0, 'morning', '1xqkk5', 0.00),
-(517, '669', '4/15/2025', '8:38:02 PM', 'Michael', '[{\"order_name\":\"Salt and Pepper Fish Fillet\",\"order_quantity\":\"x1\",\"basePrice\":\"300\"}]', 300, 300, 0, 'Dine In', 5, 'pending', '', 0, 'morning', '1xqkk5', 0.00),
-(518, '670', '4/15/2025', '8:38:50 PM', 'Michael', '[{\"order_name\":\"Salt and Pepper Fish Fillet\",\"order_quantity\":\"x1\",\"basePrice\":\"300\"}]', 315, 350, 35, 'Dine In', 7, 'pending', '', 0, 'morning', '1xqkk5', 0.00),
-(519, '671', '4/15/2025', '8:48:53 PM', 'Michael', '[{\"order_name\":\"Toast Green Salad\",\"order_quantity\":\"x1\",\"basePrice\":\"230\"}]', 242, 300, 58, 'Dine In', 13, 'pending', 'nandy', 12, 'morning', '1xqkk5', 0.00),
-(520, '672', '4/15/2025', '8:50:36 PM', 'Michael', '[{\"order_name\":\"Rustiko Salad in Sesame Dressing\",\"order_quantity\":\"x1\",\"basePrice\":\"250\"}]', 213, 220, 7, 'Dine In', 8, 'pending', 'nandy', 13, 'morning', '1xqkk5', 0.00),
-(521, '673', '4/15/2025', '11:54:30 PM', 'Michael', '[{\"order_name\":\"Rustiko Salad in Sesame Dressing\",\"order_quantity\":\"x1\",\"basePrice\":\"250\"},{\"order_name\":\"Kangkong Chips w\\/ Pinakurat\",\"order_quantity\":\"x1\",\"basePrice\":\"180\"}]', 430, 500, 70, 'Dine In', 10, 'pending', 'nandy', 22, 'night', 'arjvyw', 0.00),
-(522, '673', '4/15/2025', '11:54:35 PM', 'Michael', '[{\"order_name\":\"Rustiko Salad in Sesame Dressing\",\"order_quantity\":\"x1\",\"basePrice\":\"250\"},{\"order_name\":\"Kangkong Chips w\\/ Pinakurat\",\"order_quantity\":\"x1\",\"basePrice\":\"180\"}]', 430, 500, 70, 'Dine In', 10, 'pending', 'nandy', 22, 'night', 'arjvyw', 0.00),
-(523, '674', '2025-04-20', '12:46:00', 'nandy', '[{\"order_name\":\"Kangkong Chips w\\/ Pinakurat\",\"order_quantity\":\"x1\",\"basePrice\":\"180\"},{\"order_name\":\"Pork Chips with Pinakurat Sauce\",\"order_quantity\":\"x1\",\"basePrice\":\"200\"},{\"order_name\":\"Chicken Finger Tamarind\",\"order_quantity\":\"x1\",\"basePrice\":\"305\"}]', 685, 700, 15, 'Dine In', 2, 'pending', 'nandy', 34, 'Default Shift', 'DEFAULT001', 0.00);
+(524, '675', '2025-05-20', '09:35:11', 'Michael', '[{\"order_name\":\"Kangkong Chips w\\/ Pinakurat\",\"order_quantity\":\"x1\",\"basePrice\":180}]', 180, 300, 120, 'Dine In', 5, 'pending', 'Michael', 9, 'Default Shift', 'DEFAULT001', 0.00),
+(525, '676', '2025-05-20', '10:30:49', 'Michael', '[{\"order_name\":\"Pork Chips with Pinakurat Sauce\",\"order_quantity\":\"x1\",\"basePrice\":200}]', 170, 200, 30, 'Dine In', 3, 'pending', 'Michael', 10, 'Default Shift', 'DEFAULT001', 0.00),
+(526, '677', '2025-05-20', '11:20:29', 'Michael', '[{\"order_name\":\"Pork Chips with Pinakurat Sauce\",\"order_quantity\":\"x1\",\"basePrice\":200},{\"order_name\":\"Kangkong Chips w\\/ Pinakurat\",\"order_quantity\":\"x1\",\"basePrice\":180}]', 399, 400, 1, 'Dine In', 3, 'pending', 'Michael', 19, 'Default Shift', 'DEFAULT001', 0.00),
+(527, '679', '2025-05-20', '11:48:09', 'Michael', '[{\"order_name\":\"Nachos\",\"order_quantity\":\"x1\",\"basePrice\":300}]', 300, 300, 0, 'Dine In', 4, 'pending', 'Michael', 15, 'Default Shift', 'DEFAULT001', 0.00),
+(528, '678', '2025-05-20', '11:48:20', 'Michael', '[{\"order_name\":\"Pork Chips with Pinakurat Sauce\",\"order_quantity\":\"x1\",\"basePrice\":200}]', 200, 200, 0, 'Dine In', 12, 'pending', 'Michael', 10, 'Default Shift', 'DEFAULT001', 0.00),
+(529, '680', '2025-05-20', '11:50:49', 'Michael', '[{\"order_name\":\"Pork Chips with Pinakurat Sauce\",\"order_quantity\":\"x1\",\"basePrice\":200}]', 200, 200, 0, 'Dine In', 0, 'pending', 'Michael', 10, 'Default Shift', 'DEFAULT001', 0.00),
+(530, '681', '2025-05-20', '11:56:36', 'Michael', '[{\"order_name\":\"Kangkong Chips w\\/ Pinakurat\",\"order_quantity\":\"x1\",\"basePrice\":180}]', 189, 200, 11, 'Dine In', 0, 'pending', 'Michael', 9, 'Default Shift', 'DEFAULT001', 0.00),
+(531, '682', '2025-05-20', '12:01:51', 'Michael', '[{\"order_name\":\"Pork Chips with Pinakurat Sauce\",\"order_quantity\":\"x1\",\"basePrice\":200,\"order_take\":\"Dine In\"}]', 200, 200, 0, 'Take Out', 0, 'pending', 'Michael', 10, 'Default Shift', 'DEFAULT001', 0.00);
 
 -- --------------------------------------------------------
 
@@ -533,20 +528,7 @@ CREATE TABLE `user-staff` (
 --
 
 INSERT INTO `user-staff` (`staff_no`, `lastName`, `middleName`, `firstName`, `password`, `contactNumber`, `email`, `staff_token`, `avatar`, `waiter_code`, `order_count`) VALUES
-(35, 'Arca', 'a', 'Rachel', '$2y$10$zvj15tPY0.Xd1YDOcG.QLuzlY7hT3OG5Ihx0FuuM4yIvy5A53k5IO', 2147483647, 'arcarcahel1287@gmail.com', 35, 'default.jpg', 'RA1482', 1),
-(36, 'nario', '', 'nandy', '$2y$10$l.11Bs5szy7LOXXS5r/nruzwER8C4HymglCyVkVgTtHA.pRuGQe2O', 2147483647, 'samnario2002@gmail.com', 36, 'default.jpg', 'NN7650', 155),
-(37, 'Roquela', 'Martinez', 'Zachary', '$2y$10$nAQOVvfM9.Z.czgNcLM7q.fjfwa7mrC1WD01JrcEuAaD/OusLS8yW', 2147483647, 'zachebelle11@gmail.com', 37, 'default.jpg', 'ZR6585', 0),
-(38, 'condelosano', '', 'natashia', '$2y$10$bWQmjTjcxRulK7TKEqidmO2fROpvbdLflO3bM8jiqqIKsKd/6J1oC', 2147483647, 'natashiacondelosano@gmail.com', 38, 'default.jpg', 'NC6256', 62),
-(39, 'Pinpin', 'Soque', 'Neil Joshua', '$2y$10$nPkjUS6GtybOMwNjzqufFuqpQRumNX8khCHQjJvLL68EUgE/1y3u.', 2147483647, 'neiljoshua531@gmail.com', 39, 'default.jpg', 'NP4475', 0),
-(40, 'villanueva', '', 'sharaine', '$2y$10$Hs2kMErHvJyquhyMeUWy4./TVeaEPWSuEXyzMfhOvyW5z3iWtPPju', 2147483647, 'sharainewong1999@gmail.com', 40, 'default.jpg', 'SV9833', 8),
-(41, 'cielo', '', 'jemel', '$2y$10$RE5t22ZyN1zGMWKBlw8eSevA5fI4MPis5krX4FfG0AT8kz6owZlGi', 2147483647, 'cielojemel@gmail.com', 41, 'default.jpg', 'JC9667', 3),
-(42, 'tuazon', 'nieves', 'julie ann', '$2y$10$CMOarpGBb1Zo93dnF0wI7OSijP0fc2.Lb1JwuP37pihhigfYfzaKO', 2147483647, 'jhoituazon@gmail.com', 42, 'default.jpg', 'JT9943', 11),
-(43, 'salazar', 'millado', 'Rynon', '$2y$10$2Fc2fILohIT4ilk9r7pv3.QX1c4NZHaKb1m.w98vpbiZL1VJdqI.a', 2147483647, 'mingkolplaygames@gmail.com', 43, 'default.jpg', 'RS9157', 6),
-(44, 'gonzalez', 'linobo', 'ijay', '$2y$10$syugpwnmOZ0dZW9wCgDm6OJ8t8TgTmuTz80XBkW370NMfUkbYDAdG', 2147483647, 'gonzalesjay2003@gmail.com', 44, 'default.jpg', 'IG8415', 4),
-(45, 'Buenaobra', '', 'Edber', '$2y$10$nSZwFJlrrMbU8l9NNzh4bexV/amSUmzqrz.bw8hmjw3ZKt.njP/iW', 2147483647, 'buenaobraedber@gmail.com', 45, 'default.jpg', 'EB9658', 8),
-(46, 'Abuyot', 'Venturozo', 'Johnpaul', '$2y$10$kP4N2cqNM7VT/a9z07dhueU8XLMIX3L4LA8SSrmnnMOaGVk2DivjS', 2147483647, 'paulj6743@gmail.com', 46, 'default.jpg', 'JA7583', 19),
-(47, 'beltrano', '', 'ella', '$2y$10$m.B9cO5i6TmPeVNrCkfa7efqCCW6fRVgYyH6cDVhjBi0eobWS9lPG', 2147483647, 'raelbeltrano10@gmail.com', 47, 'default.jpg', 'EB9199', 1),
-(49, 'Dayandante', 'Dalaguit', 'Michael', '$2y$10$TmtihPhoFFH./i6b6bE.HOQL.OQdrUM6o4g009PDV7H8FbOp/XJhi', 123456789, '202211836@gordoncollege.edu.ph', 49, 'default.jpg', 'MD8349', 0);
+(50, 'Dayandante', 'Dalaguit', 'Michael', '$2y$10$Vlblq/EqAAFbpRNYLkf9N.LSh9eYK8aKzg05mUw1gDOk8SJn9TYwS', 2147483647, 'mike@gmail.com', 50, 'default.jpg', 'MD9915', 9);
 
 -- --------------------------------------------------------
 
@@ -567,13 +549,8 @@ CREATE TABLE `vouchers` (
 --
 
 INSERT INTO `vouchers` (`voucher_id`, `voucher_code`, `voucher_discount`, `voucher_deadline`, `voucher_description`) VALUES
-(5, 'SAMPLE', 32, '2025-02-11', 'SAMPLES'),
-(6, 'Sa', 33, '2025-02-08', 'sd'),
-(7, 'NANDY', 90, '2025-03-17', 'Lulu nimo'),
 (8, 'DSCNT', 5, '2042-12-10', 'Student/PWD/Senior Discount'),
-(9, 'OPENING', 10, '2025-04-12', 'Soft Opening'),
-(10, 'HOUSE', 100, '2025-04-11', 'ON THE HOUSE'),
-(11, 'HOUSE', 100, '2025-04-30', 'ON THE HOUSE');
+(9, 'OPENING', 10, '2025-04-12', 'Soft Opening');
 
 --
 -- Indexes for dumped tables
@@ -647,7 +624,7 @@ ALTER TABLE `vouchers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_no` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2761;
+  MODIFY `order_no` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2771;
 
 --
 -- AUTO_INCREMENT for table `pos-menu`
@@ -659,19 +636,19 @@ ALTER TABLE `pos-menu`
 -- AUTO_INCREMENT for table `que_orders`
 --
 ALTER TABLE `que_orders`
-  MODIFY `que_order_no` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=675;
+  MODIFY `que_order_no` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=684;
 
 --
 -- AUTO_INCREMENT for table `remit_returns`
 --
 ALTER TABLE `remit_returns`
-  MODIFY `return_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `return_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `remit_sales`
 --
 ALTER TABLE `remit_sales`
-  MODIFY `remit_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `remit_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `reserve_table`
@@ -689,13 +666,13 @@ ALTER TABLE `return-orders`
 -- AUTO_INCREMENT for table `total_sales`
 --
 ALTER TABLE `total_sales`
-  MODIFY `total_order` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=524;
+  MODIFY `total_order` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=532;
 
 --
 -- AUTO_INCREMENT for table `user-staff`
 --
 ALTER TABLE `user-staff`
-  MODIFY `staff_no` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `staff_no` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `vouchers`
