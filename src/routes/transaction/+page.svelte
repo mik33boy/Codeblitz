@@ -183,19 +183,29 @@
             return; // Exit the function if the code is wrong
         }
         
+        // Prepare food summary data
+        const foodSummary = recentSales.map(sale => ({
+            items_ordered: sale.items_ordered,
+            total_amount: sale.totalCost.replace('₱', ''),
+            date: sale.orderDate,
+            time: sale.orderTime
+        }));
+
         // Prepare data to send
         const returnData = {
-            cashier_name: recentSales[0]?.name, // Assuming the cashier name is from the first sale
-            total_sales: totalSales.toFixed(2), // Format total sales
-            return_date: selectedDate.toISOString().split('T')[0], // Format date as YYYY-MM-DD
-            return_time: new Date().toLocaleTimeString(), // Get current time
-            return_validation: "Validated"
+            cashier_name: recentSales[0]?.name || '', // Ensure we have a default value
+            total_sales: parseFloat(totalSales.toFixed(2)), // Convert to number
+            remit_date: selectedDate.toISOString().split('T')[0], // Format date as YYYY-MM-DD
+            remit_time: new Date().toLocaleTimeString(), // Get current time
+            remit_validation: "Validated",
+            remit_shortage: 0, // Default value for remit_shortage
+            food_summary: JSON.stringify(foodSummary) // Add food summary data
         };
 
-        console.log("Return Data:", returnData); // Log remitData to check values
+        console.log("Sales Data:", returnData); // Log remitData to check values
 
         // Send data to the backend
-        fetch('http://localhost/Codeblitz/backend/modules/remit_returns.php', {
+        fetch('http://localhost/Codeblitz/backend/modules/remit_sales.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -204,28 +214,24 @@
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`); // Throw an error for non-2xx responses
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
             return response.json();
         })
         .then(data => {
-            if (data.success) {
-                showAlert("Sales return successfully.", "success"); // Show alert for successful remit
-                console.log("Return confirmed with code:", inputCode);
+            console.log("Server response:", data); // Log the server response
+            if (data && data.success) {
+                showAlert("Sales remitted successfully.", "success");
+                isRemitDisabled = true; // Disable remit button after successful remit
+                closeSecondPopup(); // Close the popup
             } else {
-                showAlert("Failed to return sales. Please try again.", "error");
-                console.error("Error response:", data.message); // Log the error message
+                throw new Error(data?.message || "Failed to remit sales");
             }
         })
         .catch(error => {
-            console.error("Fetch error:", error); // Log the fetch error
-            showAlert("An error occurred. Please try again.", "error");
+            console.error("Error:", error);
+            showAlert(error.message || "An error occurred. Please try again.", "error");
         });
-
-        // Clear shortage from local storage
-        localStorage.removeItem('shortage'); // Clear shortage from local storage
-
-        closeSecondPopup(); // Close the second popup after confirmation
     }
   
     // Updated showAlert function to include a success message
